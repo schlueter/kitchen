@@ -1,0 +1,3 @@
+<% @devices.each do |device| -%>
+SUBSYSTEM=="usb", ATTR{idVendor}=="<%= device[:idVendor] %>", ATTR{idProduct}=="<%= device[:idProduct] %>", MODE="0600", OWNER="<%= @dev_user %>"
+<% end -%>
