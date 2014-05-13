@@ -36,12 +36,17 @@ The folders in this repo each contain Chef related files/folders with different 
             ssl_fix
             ...
 
+
+### data_bags/ ###
 There is one other folder that I add to my kitchens as needed, which is ignored via a .gitignore file in the root of the kitchen repo. That's a `data_bags` folder, which can contain specific, frequently sensitive—and thus the lack of being in a public github repo—configuration information. You can read more about how databags can be used [with Vagrant](http://docs.vagrantup.com/v2/provisioning/chef_solo.html) and [with Chef generally](http://docs.opscode.com/essentials_data_bags.html).
 
+### cookbooks/ ###
 Of the folders that *are* included in this kitchen repo, no files should ever be manually changed in one, the `cookbooks` folder. This directory contains only cookbooks which are retrieved from elsewhere (Opscode official cookbooks; random cookbooks on github; random cookbooks that were somehow not in one of the previous two categories; etc.), and have been added to this repo via some method, maintaining their consistency (git subtree or manually adding of an archived cookbook). In the future I may include these as submodules, since they won't change often, and regardless of their original method of source control, can always have git repositories created for them. I accept pull requests for any of these cookbooks, and will either ask that any changes be moved to the site-cookbooks directory, or suggest that a pull request or equivalent be made to the source repository.
 
+### site-cookbooks/ ###
 As I just implied, the `site-cookbooks` directory should be used to override cookbooks in the `cookbooks` directory. It should also be used for custom cookbooks either for specific projects, or for specific types of projects. 
 
+### roles/ ###
 The `roles` directory's use is for (guess what?) [*roles*](http://docs.opscode.com/essentials_roles.html). These should include any [run-list](http://docs.opscode.com/essentials_node_object_run_lists.html), or role specific custom json. Before I implemented this repository, and also as required with previous versions of Chef and Vagrant, both of these tasks were implemented in a project's Vagrantfile directly with the `chef.add_recipe` (or `chef.run_list`) and `chef.json` methods. This repository *can* be used with those methods, but not using them aids in seperation of concerns, so that the Vagrantfile just contains configuration pertinent to Vagrant, and everything pertinent to Chef is contained here.
 
 ## Usage with Vagrant ##
